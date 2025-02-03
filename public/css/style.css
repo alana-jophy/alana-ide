@@ -1,0 +1,189 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e;
+    color: white;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #282c34;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.hero {
+    text-align: center;
+    padding: 50px;
+    background-color: #252525;
+}
+
+.cta-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.cta-button:hover {
+    background-color: #0056b3;
+}
+
+/* Features Section */
+.features {
+    padding: 40px;
+}
+
+.feature-box {
+    background: #333;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 8px;
+}
+
+/* Call to Action */
+.cta {
+    padding: 40px;
+    background: #007bff;
+    color: white;
+}
+
+.cta a {
+    background-color: white;
+    color: #007bff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.cta a:hover {
+    background-color: #ddd;
+}
+
+/* Footer */
+footer {
+    background: #282c34;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+/* ============================= */
+/* Login & Signup Page Styles */
+/* ============================= */
+.auth-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 100px auto;
+    background: #2c2f36;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+}
+
+.auth-container h2 {
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.auth-container input {
+    width: 90%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background: #1e1e1e;
+    color: white;
+}
+
+.auth-container button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.auth-container button:hover {
+    background-color: #0056b3;
+}
+
+.auth-container p {
+    margin-top: 10px;
+}
+
+.auth-container a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.auth-container a:hover {
+    text-decoration: underline;
+}
+
+/* ============================= */
+/* Admin Login Button */
+/* ============================= */
+.admin-link {
+    color: #ffcc00;
+    font-weight: bold;
+}
+
+.admin-button {
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.admin-button:hover {
+    background-color: darkred;
+}
+
+/* ============================= */
+/* Admin Dashboard Styles */
+/* ============================= */
+.admin-controls {
+    margin-top: 20px;
+}
+
+.admin-controls button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.admin-controls button:hover {
+    background-color: #0056b3;
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - CloudDock IDE</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <h2>Admin Login</h2>
+        <div id="message" style="display: none; padding: 10px; text-align: center;"></div>
+        <form id="adminLoginForm">
+            <input type="text" id="adminUsername" placeholder="Admin Username" required>
+            <input type="password" id="adminPassword" placeholder="Password" required>
+            <button type="submit">Login as Admin</button>
+        </form>
+        <p>Not an admin? <a href="login.html">Go to User Login</a></p>
+    </div>
+
+    <script>
+        document.getElementById("adminLoginForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const adminUsername = document.getElementById("adminUsername").value;
+            const adminPassword = document.getElementById("adminPassword").value;
+            const messageBox = document.getElementById("message");
+
+            if (!adminUsername || !adminPassword) {
+                messageBox.innerText = "⚠️ Please fill in all fields.";
+                messageBox.style.color = "red";
+                messageBox.style.display = "block";
+                return;
+            }
+
+            try {
+                const response = await fetch("/api/admin/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ adminUsername, adminPassword })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    localStorage.setItem("admin-token", result.token); // Store admin token
+                    window.location.href = "admin-dashboard.html"; // Redirect to admin dashboard
+                } else {
+                    messageBox.innerText = result.message;
+                    messageBox.style.color = "red";
+                    messageBox.style.display = "block";
+                }
+            } catch (error) {
+                console.error("Admin Login Error:", error);
+                messageBox.innerText = "⚠️ Server error. Please try again later.";
+                messageBox.style.color = "red";
+                messageBox.style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>

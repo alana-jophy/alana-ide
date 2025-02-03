@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - CloudDock IDE</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Admin Dashboard</h1>
+
+        <!-- Action Buttons -->
+        <div class="dashboard-actions">
+            <button onclick="manageUsers()">Manage Users</button>
+            <button onclick="viewLogs()">View Logs</button>
+            <button onclick="logout()">Logout</button>
+        </div>
+
+        <!-- User Management Table -->
+        <div id="userSection" style="display: none; margin-top: 20px;">
+            <h2>Manage Users</h2>
+            <table id="usersTable">
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="userList"></tbody>
+            </table>
+        </div>
+
+        <!-- Log Viewer -->
+        <div id="logContainer" style="display: none; margin-top: 20px;">
+            <h2>System Logs</h2>
+            <pre id="logData"></pre> <!-- Logs will be inserted here -->
+        </div>
+    </div>
+
+    <script src="js/admin-dashboard.js"></script>
+</body>
+</html>

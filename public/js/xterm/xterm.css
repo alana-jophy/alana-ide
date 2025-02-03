@@ -1,0 +1,72 @@
+/* Basic styling for the terminal */
+.xterm {
+  font-family: Monaco, monospace;
+  font-size: 14px;
+  background-color: #1e1e1e;
+  color: #dcdcdc;
+  border-radius: 5px;
+  height: 400px;   /* Adjust the height as needed */
+  width: 100%;     /* Full width */
+  margin: 0 auto;
+  padding: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
+  overflow: hidden;  /* Ensure the content doesn't spill over */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Styling for terminal input area */
+.xterm .xterm-screen {
+  padding: 10px;
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-y: auto; /* Allow vertical scroll if content exceeds */
+}
+
+/* Optional: style for cursor */
+.xterm .xterm-cursor {
+  background-color: #dcdcdc;  /* Cursor color */
+  border-radius: 50%;
+}
+
+/* Customize the terminal's appearance for theme/branding */
+.xterm .xterm-helpers {
+  background-color: #333;  /* Background for terminal helpers */
+}
+
+/* Scrollbar styling */
+.xterm .xterm-scroll-area {
+  scrollbar-width: thin;
+  scrollbar-color: #555 #222;  /* Scrollbar colors */
+}
+
+.xterm .xterm-scrollbar {
+  background-color: #444;  /* Scrollbar background */
+}
+
+/* Allow text selection in the terminal */
+.xterm {
+  user-select: text;
+  -webkit-user-select: text;
+  -ms-user-select: text;
+}
+
+/* Enhance the input area when the terminal is focused */
+.xterm:focus-within {
+  border: 2px solid #6a9e5f;  /* Focus border */
+  box-shadow: 0 0 10px rgba(106, 158, 95, 0.6);  /* Focus shadow */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .xterm {
+      height: 300px;  /* Adjust the height for smaller screens */
+  }
+}
+
+/* Ensure smooth scrolling in terminal */
+.xterm .xterm-screen {
+  scroll-behavior: smooth;
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudDock IDE - Terminal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="js/xterm/xterm.css">
+    <script src="js/xterm/xterm.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <h1>CloudDock IDE - Terminal</h1>
+        <a href="dashboard.html" class="btn">Back to Dashboard</a>
+    </nav>
+
+    <section class="terminal-section">
+        <h2>Integrated Terminal</h2>
+        <div id="terminal"></div>
+    </section>
+
+    <script>
+        // Initialize the terminal
+        const term = new Terminal();
+        term.open(document.getElementById('terminal'));
+
+        // WebSocket for real-time terminal interaction
+        const socketProtocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+        const socketUrl = `${socketProtocol}//${window.location.host}`;
+        const socket = new WebSocket(socketUrl);
+
+        socket.onmessage = (event) => term.write(event.data);
+        term.onData(data => socket.send(data));
+    </script>
+
+</body>
+</html>

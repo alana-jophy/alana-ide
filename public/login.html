@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CloudDock IDE</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <h2>User Login</h2>
+
+        <!-- Message Box for displaying success or error messages -->
+        <div id="message" style="display: none; padding: 10px; text-align: center;"></div>
+
+        <!-- Login Form -->
+        <form id="loginForm">
+            <input type="email" id="email" name="email" placeholder="Email" required autocomplete="off">
+            <input type="password" id="password" name="password" placeholder="Password" required autocomplete="off">
+            <p><a href="forgot-password.html">Forgot Password?</a></p>
+            <button type="submit">Login</button>
+        </form>
+
+        <p>Don't have an account? <a href="signup.html">Create one</a></p>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const message = params.get("message");
+            const messageBox = document.getElementById("message");
+
+            if (message) {
+                messageBox.style.display = "block";
+                messageBox.style.color = message === "signup-success" ? "green" : "red";
+                messageBox.innerText = {
+                    "signup-success": "✅ Sign-up successful! Please log in.",
+                    "user-not-found": "❌ No account found.",
+                    "invalid-credentials": "❌ Incorrect password.",
+                    "session-expired": "⚠️ Your session expired. Please log in again.",
+                    "server-error": "⚠️ An error occurred. Try again later.",
+                    "missing-fields": "⚠️ Please fill in all fields.",
+                    "logout-error": "⚠️ Error logging out. Please try again."
+                }[message] || "⚠️ An unknown error occurred.";
+            }
+        };
+
+        // Handle Login with Fetch API
+        document.getElementById("loginForm").addEventListener("submit", async function(event) {
+            event.preventDefault(); // Prevent page reload
+
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const messageBox = document.getElementById("message");
+
+            if (!email || !password) {
+                messageBox.innerText = "⚠️ Please fill in all fields.";
+                messageBox.style.color = "red";
+                messageBox.style.display = "block";
+                return;
+            }
+
+            try {
+                const response = await fetch("/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const result = await response.json();
+                messageBox.style.display = "block";
+                messageBox.innerText = result.message;
+
+                if (result.token) { // ✅ Successful login
+                    localStorage.setItem("token", result.token); // Store token for authentication
+                    messageBox.style.color = "green";
+                    setTimeout(() => window.location.href = "/dashboard", 1000);
+                } else {
+                    messageBox.style.color = "red";
+                }
+            } catch (error) {
+                console.error("Login Error:", error);
+                messageBox.innerText = "⚠️ Server error. Please try again later.";
+                messageBox.style.color = "red";
+                messageBox.style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>

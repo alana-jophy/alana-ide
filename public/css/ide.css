@@ -1,0 +1,81 @@
+/* Overall container for IDE layout */
+.ide-container {
+    display: flex;
+    flex-direction: column; /* Make it column for mobile responsiveness */
+    height: 100vh;
+    overflow: hidden; /* Prevent overflow */
+}
+
+/* File explorer section */
+.file-explorer {
+    width: 20%;
+    background: #2d2d2d;
+    color: white;
+    padding: 10px;
+    min-height: 0; /* Prevent overflow issues */
+    box-sizing: border-box;
+    overflow-y: auto; /* Scrollable file explorer */
+}
+
+/* Code editor section */
+.code-editor {
+    flex: 1;
+    background: #1e1e1e;
+    color: #dcdcdc;
+    padding: 10px;
+    box-sizing: border-box;
+    min-height: 0; /* Prevent overflow issues */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Terminal section */
+.terminal {
+    background: black;
+    color: green;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 100px;
+    overflow-y: auto; /* Allow scrolling in terminal */
+    font-family: monospace;
+}
+
+/* Add responsiveness to the layout for mobile screens */
+@media (max-width: 768px) {
+    .ide-container {
+        flex-direction: column; /* Stack vertically on smaller screens */
+    }
+    
+    .file-explorer {
+        width: 100%; /* Full width for smaller screens */
+        height: 150px; /* Set a fixed height for mobile screens */
+    }
+    
+    .code-editor {
+        width: 100%; /* Full width for code editor on mobile */
+        height: 50vh; /* Adjust the height for smaller screens */
+    }
+
+    .terminal {
+        height: 100px; /* Smaller terminal height for mobile */
+    }
+}
+
+/* Transitions for smooth UI updates */
+.file-explorer,
+.code-editor {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover effect on file explorer for better interactivity */
+.file-explorer:hover {
+    background-color: #3a3a3a;
+}
+
+/* Active state for terminal input field */
+.terminal:focus-within {
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); /* Glowing effect when terminal is focused */
+}

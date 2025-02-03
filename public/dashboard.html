@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - CloudDock IDE</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Welcome to CloudDock IDE</h1>
+
+        <!-- Message Box -->
+        <div id="message" style="padding: 10px; text-align: center;"></div>
+
+        <!-- User Info -->
+        <div id="userInfo" style="display: none;">
+            <p><strong>Name:</strong> <span id="userName"></span></p>
+            <p><strong>Email:</strong> <span id="userEmail"></span></p>
+        </div>
+
+        <!-- Dashboard Navigation -->
+        <nav>
+            <button onclick="openIDE()">Open IDE</button>
+            <button onclick="manageFiles()">Manage Files</button>
+            <button onclick="logout()">Logout</button>
+        </nav>
+    </div>
+
+    <script>
+        // ✅ Fetch user details from backend with authentication
+        async function fetchUserData() {
+            try {
+                const response = await fetch("/me", {
+                    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    document.getElementById("userName").innerText = data.user.fullName;
+                    document.getElementById("userEmail").innerText = data.user.email;
+                    document.getElementById("userInfo").style.display = "block";
+                } else {
+                    alert("⚠️ Session expired. Redirecting to login...");
+                    window.location.href = "/login?message=session-expired";
+                }
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+                alert("⚠️ Error fetching user info. Redirecting to login...");
+                window.location.href = "/login";
+            }
+        }
+
+        // ✅ Show login success message
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const message = urlParams.get("message");
+            const messageBox = document.getElementById("message");
+
+            if (message === "login-success") {
+                messageBox.innerText = "✅ Login successful! Welcome to your dashboard.";
+                messageBox.style.color = "green";
+                messageBox.style.fontSize = "18px";
+                messageBox.style.fontWeight = "bold";
+                messageBox.style.display = "block";
+
+                setTimeout(() => messageBox.style.display = "none", 3000);
+            }
+
+            fetchUserData(); // Load user info on page load
+        };
+
+        // ✅ Logout function with token removal
+        function logout() {
+            localStorage.removeItem("token"); // Clear stored token
+            fetch("/logout")
+                .then(() => {
+                    alert("✅ Logged out successfully.");
+                    window.location.href = "/";
+                })
+                .catch(error => console.error("Logout error:", error));
+        }
+
+        // ✅ Placeholder for navigation functions
+        function openIDE() {
+            window.location.href = "/ide.html";
+        }
+
+        function manageFiles() {
+            window.location.href = "/file-manager.html";
+        }
+    </script>
+</body>
+</html>

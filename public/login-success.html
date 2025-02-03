@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudDock IDE - Login Successful</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Notification message -->
+    <div class="notification">
+        <h2>Login Successful!</h2>
+        <p>Welcome to CloudDock IDE. Ready to start coding?</p>
+    </div>
+
+    <!-- Start Coding Button -->
+    <div class="button-container">
+        <a href="terminal.html" id="start-coding-btn" class="btn">Start Coding</a>
+    </div>
+
+    <script>
+        // When the "Start Coding" button is clicked, navigate to the terminal page
+        document.getElementById('start-coding-btn').addEventListener('click', function(event) {
+            window.location.href = 'terminal.html'; // Redirect to terminal page
+        });
+
+        // Optional: Auto-click the button after a short delay to simulate automatic login flow
+        setTimeout(() => {
+            document.getElementById('start-coding-btn').click();
+        }, 3000); // This will automatically click the button after 3 seconds for demonstration purposes
+    </script>
+
+</body>
+</html>

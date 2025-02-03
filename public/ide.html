@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudDock IDE</title>
+    <link rel="stylesheet" href="css/ide.css">
+</head>
+<body>
+    <div class="ide-container">
+        <!-- File Explorer -->
+        <div class="file-explorer">
+            <h3>Files</h3>
+            <ul id="file-list">
+                <!-- Files will be dynamically populated here -->
+            </ul>
+        </div>
+
+        <!-- Code Editor -->
+        <div class="code-editor">
+            <h3>Code Editor</h3>
+            <div id="editor"></div> <!-- Monaco or Ace Editor will be initialized here -->
+        </div>
+
+        <!-- Terminal -->
+        <div class="terminal">
+            <h3>Terminal</h3>
+            <div id="terminal-output"></div> <!-- Terminal Output -->
+            <input type="text" id="terminal-input" placeholder="Type command...">
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.32.1/min/vs/loader.js"></script> <!-- Monaco Editor Script -->
+    <script src="js/ide.js"></script>
+
+    <script>
+        // Initialize Monaco Editor for the code editor section
+        require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.32.1/min/vs' } });
+        require(['vs/editor/editor.main'], function () {
+            const editor = monaco.editor.create(document.getElementById('editor'), {
+                value: `// Start coding here...`,
+                language: 'javascript',
+                automaticLayout: true
+            });
+        });
+
+        // Dynamically populate the file explorer (you can modify this for actual file data from your backend)
+        const fileList = ["main.js", "index.html", "style.css"];
+        const fileListElement = document.getElementById("file-list");
+
+        fileList.forEach(file => {
+            const li = document.createElement("li");
+            li.textContent = file;
+            fileListElement.appendChild(li);
+        });
+
+        // Terminal logic for interactive commands (mockup)
+        document.getElementById("terminal-input").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                const command = event.target.value;
+                event.target.value = ""; // Clear input
+
+                const output = document.createElement("div");
+                output.textContent = `$ ${command} executed`;
+                document.getElementById("terminal-output").appendChild(output);
+
+                // Optionally, send command to backend (via WebSocket or fetch) for actual processing
+            }
+        });
+    </script>
+</body>
+</html>
